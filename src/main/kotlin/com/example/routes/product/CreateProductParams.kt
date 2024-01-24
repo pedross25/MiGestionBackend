@@ -5,8 +5,10 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class CreateProductParams(
     val name: String,
-    val amount: Int,
     val price: Double,
     val category: String,
-    val images: List<ImageData>?
+    val amount: Int,
+    val description: String,
+    val template: Boolean,
+    val invoice: Int
 )

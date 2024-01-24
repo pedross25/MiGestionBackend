@@ -1,4 +1,4 @@
-package com.example.data.db
+package com.example.data.db.schemas
 
 import org.jetbrains.exposed.sql.Table
 

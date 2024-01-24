@@ -1,9 +1,7 @@
 package com.example.data.db.extensions
 
-import com.example.data.db.ProductTable
-import com.example.data.db.UserTable
-import com.example.data.models.Product
-import com.example.data.models.User
+import com.example.data.db.schemas.*
+import com.example.data.models.*
 import org.jetbrains.exposed.sql.ResultRow
 
 fun ResultRow?.toUser(): User? {
@@ -25,6 +23,46 @@ fun ResultRow?.toProduct(): Product? {
         amount = this[ProductTable.amount],
         price = this[ProductTable.price],
         category = this[ProductTable.category],
+        template = this[ProductTable.template],
+        description = this[ProductTable.description],
+        invoice = this[ProductTable.invoiceId],
         createdAt = this[ProductTable.createdAt].toString()
+    )
+}
+
+fun ResultRow?.toCustomer(): Customer? {
+    return if (this == null) null
+    else Customer(
+        id = this[CustomerTable.id],
+        businessName = this[CustomerTable.businessName],
+        cif = this[CustomerTable.cif],
+        streetAddress = this[CustomerTable.streetAddress],
+        email = this[CustomerTable.email],
+        city = this[CustomerTable.city],
+        state = this[CustomerTable.state],
+        phoneNumber = this[CustomerTable.phoneNumber],
+        postalcode = this[CustomerTable.postalCode],
+        createdAt = this[CustomerTable.createdAt].toString()
+    )
+}
+
+fun ResultRow?.toAlbaran(produts: List<Int>): Albaran? {
+    return if (this == null) null
+    else Albaran(
+        id = this[AlbaranTable.id],
+        customer = this[AlbaranTable.customer],
+        createdAt = this[AlbaranTable.fecha].toString(),
+        albarans = produts
+    )
+}
+
+fun ResultRow?.toInvoice(albarans: List<Int>): Invoice? {
+    return if (this == null) null
+    else Invoice(
+        id = this[InvoiceTable.id],
+        createdAt = this[InvoiceTable.date].toString(),
+        idAlbarans = albarans,
+        customer = this[InvoiceTable.customer],
+        paymentMethod = this[InvoiceTable.paymentmethod]
     )
 }

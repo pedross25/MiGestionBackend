@@ -13,10 +13,8 @@ class ProductRepositoryImpl(
 ): ProductRepository  {
 
     override suspend fun uploadProduct(params: CreateProductParams): BaseResponse<Any> {
-
         val product = productService.createProduct(params)
         return if (product != null) {
-            saveImages(params)
             BaseResponse.SuccessResponse(data = product)
         } else {
             BaseResponse.ErrorResponse()
@@ -24,8 +22,17 @@ class ProductRepositoryImpl(
 
     }
 
+    override suspend fun getAll(): BaseResponse<Any> {
+        return try {
+            val products = productService.getAll()
+            BaseResponse.SuccessResponse(products)
+        } catch (e: Exception) {
+            BaseResponse.ErrorResponse("Error al obtener los productos: ${e.message}")
+        }
+    }
+
     // todo sacar a otro repositorio de imagenes?
-    fun saveImages(params: CreateProductParams) {
+/*    fun saveImages(params: CreateProductParams) {
 
         val imageData = params.images
 
@@ -39,5 +46,5 @@ class ProductRepositoryImpl(
             imageFile.writeBytes(imageData[0].imageBytes)
         }
 
-    }
+    }*/
 }

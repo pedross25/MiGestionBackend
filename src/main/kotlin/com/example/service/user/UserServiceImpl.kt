@@ -1,7 +1,7 @@
 package com.example.service.user
 
 import com.example.data.db.DatabaseFactory.dbQuery
-import com.example.data.db.UserTable
+import com.example.data.db.schemas.UserTable
 import com.example.data.db.extensions.toUser
 import com.example.data.models.User
 import com.example.routes.auth.CreateUserParams

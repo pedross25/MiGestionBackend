@@ -5,4 +5,6 @@ import com.example.utils.BaseResponse
 
 interface ProductRepository {
     suspend fun uploadProduct(params: CreateProductParams): BaseResponse<Any>
+
+    suspend fun getAll(): BaseResponse<Any>
 }

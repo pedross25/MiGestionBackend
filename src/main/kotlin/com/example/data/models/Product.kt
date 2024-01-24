@@ -7,5 +7,8 @@ data class Product(
     val price: Double,
     val category: String,
     val createdAt: String,
+    val template: Boolean,
+    val description: String,
+    val invoice: Int?,
     var images: List<String>? = null
 )
