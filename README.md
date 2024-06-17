@@ -1,5 +1,8 @@
 MiGestionBackend
-Bienvenido al repositorio del backend para la aplicación móvil MiGestion, un ERP diseñado para autónomos que les permite gestionar clientes, facturas, productos y más. Este backend está desarrollado utilizando Kotlin con Ktor y proporciona una API robusta para la comunicación con la aplicación móvil MiGestion.
+
+
+Bienvenido al repositorio del backend para la aplicación móvil MiGestion, un ERP diseñado para autónomos que les permite gestionar clientes, facturas, productos y más. 
+Este backend está desarrollado utilizando Kotlin con Ktor y proporciona una API robusta para la comunicación con la aplicación móvil MiGestion.
 
 Características
 Gestión de Clientes: API para crear, actualizar, eliminar y consultar información detallada de clientes.
