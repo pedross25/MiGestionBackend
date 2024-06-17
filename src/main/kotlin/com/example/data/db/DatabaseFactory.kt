@@ -22,13 +22,14 @@ object DatabaseFactory {
             SchemaUtils.create(PaymentMethodTable)
             SchemaUtils.create(InvoiceTable)
             SchemaUtils.create(InvoiceAlbaranTable)
+            SchemaUtils.create(ExpenseTable)
         }
     }
 
     private fun hikari(): HikariDataSource {
         val config = HikariConfig()
         config.driverClassName = "org.postgresql.Driver"
-        config.jdbcUrl = "jdbc:postgresql://localhost:5433/scootery_db?user=postgres&password=2711"
+        config.jdbcUrl = "jdbc:postgresql://localhost:5432/migestion?user=postgres&password=postgres"
         config.maximumPoolSize = 3
         config.isAutoCommit = false
         config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"

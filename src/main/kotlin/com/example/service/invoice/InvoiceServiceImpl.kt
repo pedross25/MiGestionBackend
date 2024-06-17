@@ -1,5 +1,6 @@
 package com.example.service.invoice
 
+import com.example.data.db.extensions.toCustomer
 import com.example.data.db.extensions.toInvoice
 import com.example.data.db.schemas.*
 import com.example.data.models.Albaran
@@ -16,29 +17,35 @@ class InvoiceServiceImpl : InvoiceService {
 
     override suspend fun createInvoice(params: CreateInvoiceParams): Invoice? {
         var statement: InsertStatement<Number>? = null
-        var invoiceId: Int? = null
         transaction {
             statement = InvoiceTable.insert {
+                it[id] = params.id
                 it[paymentmethod] = params.idPaymentMethod
-            }
-            invoiceId = statement?.resultedValues?.get(0)?.get(InvoiceTable.id)?.toInt()
-
-            invoiceId?.let { id ->
-                params.idAlbarans.forEach { albaranId ->
-                    InvoiceAlbaranTable.insert {
-                        it[this.invoiceId] = id
-                        it[this.albaranId] = albaranId
-                    }
-                }
-
+                it[customer] = params.idCustomer
+                it[paid] = params.paid
+                it[totalPrice] = params.totalPrice
             }
         }
-        return if (invoiceId != null) {
-            statement?.resultedValues?.get(0)?.toInvoice(getAlbaransIdsForInvoice(invoiceId!!))
-        } else {
-            statement?.resultedValues?.get(0)?.toInvoice(emptyList())
+        return statement?.resultedValues?.get(0)?.toInvoice()
+    }
+        /*invoiceId = statement?.resultedValues?.get(0)?.get(InvoiceTable.id)?.toInt()
+
+        invoiceId?.let { id ->
+            params.idAlbarans.forEach { albaranId ->
+                InvoiceAlbaranTable.insert {
+                    it[this.invoiceId] = id
+                    it[this.albaranId] = albaranId
+                }
+            }
+
         }
     }
+    return if (invoiceId != null) {
+        statement?.resultedValues?.get(0)?.toInvoice(getAlbaransIdsForInvoice(invoiceId!!))
+    } else {
+        statement?.resultedValues?.get(0)?.toInvoice(emptyList())
+    }*/
+
 
     override suspend fun getAll(): List<Invoice> {
         return transaction {
@@ -49,13 +56,17 @@ class InvoiceServiceImpl : InvoiceService {
                     val customer = row[InvoiceTable.customer]
                     val paymentMethod = row[InvoiceTable.paymentmethod]
                     val albarans = getAlbaransIdsForInvoice(invoiceId)
+                    val paid = row[InvoiceTable.paid]
+                    val totalPrice = row[InvoiceTable.totalPrice]
 
                     Invoice(
                         id = invoiceId,
                         createdAt = createdAt,
-                        idAlbarans = albarans,
+                        //idAlbarans = albarans,
                         paymentMethod = paymentMethod,
-                        customer = customer
+                        customer = customer,
+                        paid = paid,
+                        totalPrice = totalPrice
                     )
                 }
         }

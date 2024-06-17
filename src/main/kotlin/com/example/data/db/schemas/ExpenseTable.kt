@@ -5,13 +5,14 @@ import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.datetime
 import java.time.LocalDateTime
 
-object InvoiceTable : Table("invoice") {
+object ExpenseTable : Table("expense") {
     val id = integer("id").autoIncrement()
     val date = datetime("date").clientDefault { LocalDateTime.now() }
-    val paid = bool("paid")
-    val totalPrice = double("total_price")
-    val paymentmethod = integer("payment_method_id").references(PaymentMethodTable.id, onDelete = ReferenceOption.CASCADE)
-    val customer = integer("customer_id").references(CustomerTable.id, onDelete = ReferenceOption.CASCADE)
+    val concept = varchar("concept", length = 255)
+    val amount = double("amount")
+    val type = varchar("type", length = 50)
+    val invoiceId = integer("invoice_id").references(InvoiceTable.id, onDelete = ReferenceOption.CASCADE).nullable()
+    val notes = text("notes").nullable()
 
     override val primaryKey = PrimaryKey(id)
 }

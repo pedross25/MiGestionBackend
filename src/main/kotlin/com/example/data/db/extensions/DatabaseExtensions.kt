@@ -26,6 +26,7 @@ fun ResultRow?.toProduct(): Product? {
         template = this[ProductTable.template],
         description = this[ProductTable.description],
         invoice = this[ProductTable.invoiceId],
+        parentId = this[ProductTable.parentId],
         createdAt = this[ProductTable.createdAt].toString()
     )
 }
@@ -56,13 +57,27 @@ fun ResultRow?.toAlbaran(produts: List<Int>): Albaran? {
     )
 }
 
-fun ResultRow?.toInvoice(albarans: List<Int>): Invoice? {
+fun ResultRow?.toInvoice(): Invoice? {
     return if (this == null) null
     else Invoice(
         id = this[InvoiceTable.id],
         createdAt = this[InvoiceTable.date].toString(),
-        idAlbarans = albarans,
         customer = this[InvoiceTable.customer],
-        paymentMethod = this[InvoiceTable.paymentmethod]
+        paymentMethod = this[InvoiceTable.paymentmethod],
+        paid = this[InvoiceTable.paid],
+        totalPrice = this[InvoiceTable.totalPrice]
+    )
+}
+
+fun ResultRow?.toExpense(): Expense? {
+    return if (this == null) null
+    else Expense(
+        id = this[ExpenseTable.id],
+        createdAt = this[ExpenseTable.date].toString(),
+        concept = this[ExpenseTable.concept],
+        amount = this[ExpenseTable.amount],
+        type = this[ExpenseTable.type],
+        invoice = this[ExpenseTable.invoiceId],
+        notes = this[ExpenseTable.notes]
     )
 }

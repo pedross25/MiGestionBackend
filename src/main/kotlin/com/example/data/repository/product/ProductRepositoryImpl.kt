@@ -1,12 +1,8 @@
 package com.example.data.repository.product
 
-import com.example.config.MESSAGE_EMAIL_ALREADY_REGISTERED
 import com.example.routes.product.CreateProductParams
-import com.example.security.JwtConfig
 import com.example.service.product.ProductService
 import com.example.utils.BaseResponse
-import io.ktor.http.ContentDisposition.Companion.File
-import java.io.File
 
 class ProductRepositoryImpl(
     private val productService: ProductService

@@ -13,6 +13,7 @@ object ProductTable : Table("product") {
     val category = varchar("category", 256)
     val template = bool("template")
     val description = text("description")
+    val parentId = integer("parent_id").references(id, onDelete = ReferenceOption.CASCADE).nullable()
     val invoiceId = integer("invoice_id").references(InvoiceTable.id, onDelete = ReferenceOption.CASCADE).nullable()
     val createdAt = datetime("created_at").clientDefault { LocalDateTime.now() }
 

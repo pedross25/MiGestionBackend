@@ -40,4 +40,5 @@ dependencies {
     implementation("io.ktor:ktor-serialization-jackson:$ktor_version")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+    implementation(kotlin("script-runtime"))
 }

@@ -10,5 +10,6 @@ data class Product(
     val template: Boolean,
     val description: String,
     val invoice: Int?,
+    val parentId: Int?,
     var images: List<String>? = null
 )

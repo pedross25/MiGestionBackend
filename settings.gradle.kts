@@ -1,1 +1,1 @@
-rootProject.name = "Scootery Motion"
+rootProject.name = "MiGestionBackend"

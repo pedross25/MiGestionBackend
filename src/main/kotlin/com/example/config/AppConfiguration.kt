@@ -5,6 +5,7 @@ import com.example.di.RepositoryProvider
 import com.example.routes.albaran.albaranRoutes
 import com.example.routes.auth.authRoutes
 import com.example.routes.customer.customersRoutes
+import com.example.routes.files.fileRoutes
 import com.example.routes.invoice.invoiceRoutes
 import com.example.routes.product.productRoutes
 import io.ktor.serialization.jackson.*
@@ -28,6 +29,7 @@ fun Application.configureRouting(){
     customersRoutes(RepositoryProvider.provideCustomerRespository())
     albaranRoutes(RepositoryProvider.provideAlbaranRespository())
     invoiceRoutes(RepositoryProvider.provideInvoiceRespository())
+    fileRoutes()
 
 
 }
